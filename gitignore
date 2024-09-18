@@ -1,0 +1,21 @@
+.DS_Store
+*.pyc
+*.egg-info
+*.swp
+tags
+src/coverage.xml
+src/.coverage
+src/.env
+src/settings/.env
+src/db.sqlite3
+src/.pytest_cache/
+src/.scannerwork/
+node_modules/
+dist/
+__pycache__/
+
+# build/
+.vscode
+.vs
+node_modules
+*debug.log

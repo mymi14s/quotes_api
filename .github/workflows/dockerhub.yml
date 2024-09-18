@@ -10,7 +10,7 @@ on:
       - production
 
 jobs:
-  build-on-development:
+  build-docker-image-and-push:
     runs-on: ubuntu-latest
     
     steps:
@@ -34,6 +34,7 @@ jobs:
         file: ./Dockerfile
         push: false
         tags: mymi14s/quotes-api:latest
+        load: true
         
           
     - name: Test Docker image

@@ -4,12 +4,13 @@ on:
   push:
     branches:
       - development
+      - production
   pull_request:
     branches:
       - production
 
 jobs:
-  build-on-development:
+  build-docker-image-and-push:
     runs-on: ubuntu-latest
     
     steps:
@@ -26,17 +27,28 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     
     - name: Build Docker image
+      id: build_image
       uses: docker/build-push-action@v4
       with:
         context: .
         file: ./Dockerfile
         push: false
-        tags:: |
-          mymi14s/quotes-api:${{ github.run_number }}
-          mymi14s/quotes-api:latest
+        tags: |
+            mymi14s/quotes-api:${{ github.run_number }}
+            mymi14s/quotes-api:latest
+        load: true
+        
           
     - name: Test Docker image
+      id: test_image
       run: |
+        docker images
+        if docker images | grep -q mymi14s/quotes-api; then
+            echo "Image found"
+        else
+            echo "Image not found"
+            exit 1
+        fi
         docker run -d --name=quotes-api-test -p8000:8000 mymi14s/quotes-api:latest
         sleep 10  # Give the container time to start up
         curl -s -o /dev/null -w "%{http_code}" http://localhost:8000 | grep 200 || exit 1
@@ -51,6 +63,6 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags:: |
+        tags: |
             mymi14s/quotes-api:${{ github.run_number }}
             mymi14s/quotes-api:latest

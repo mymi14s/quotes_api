@@ -14,7 +14,14 @@ It relies on Python quotes-api library https://pypi.org/project/quotes-library/ 
  - **Limit the Number of Quotes**: Users can specify how many quotes they want to retrieve, offering flexibility for different use cases, whether it's displaying a single quote of the day or a list of quotes on a particular topic.
  - **Categories**: Love, Life, Friend, Leadership, Inspiration, Emotion, Humor, Marriage, Poetry, Romance, Classis, Health, and many more.
 
-**Usage**
+**Usage Local**
+    - On (Python3.12):  pip install -r reqiurements
+    - cd src && uvicorn app:app --host 0.0.0.0 --port 8000
+
+**Usage Docker**
+    - docker run -d --name quotes-api -p8000:8000 mymi14s/quotes-api
+    - cd src && uvicorn app:app --host 0.0.0.0 --port 8000
+
 Visit YOUR-IP:8000/docs in your browser to explore the API 
 
 ***Retrieve a single random quote***

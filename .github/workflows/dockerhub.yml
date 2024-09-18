@@ -38,7 +38,7 @@ jobs:
           
     - name: Test Docker image
       run: |
-        docker image ls
+        docker images
         if docker image ls | grep -q mymi14s/quotes-api; then
             echo "Image found"
         else

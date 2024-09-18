@@ -38,6 +38,13 @@ jobs:
           
     - name: Test Docker image
       run: |
+        docker image ls
+        if docker image ls | grep -q mymi14s/quotes-api; then
+            echo "Image found"
+        else
+            echo "Image not found"
+            exit 1
+        fi
         docker run -d --name=quotes-api-test -p8000:8000 mymi14s/quotes-api:latest
         sleep 10  # Give the container time to start up
         curl -s -o /dev/null -w "%{http_code}" http://localhost:8000 | grep 200 || exit 1

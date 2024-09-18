@@ -33,7 +33,9 @@ jobs:
         context: .
         file: ./Dockerfile
         push: false
-        tags: mymi14s/quotes-api:latest
+        tags: |
+            mymi14s/quotes-api:${{ github.run_number }}
+            mymi14s/quotes-api:latest
         load: true
         
           

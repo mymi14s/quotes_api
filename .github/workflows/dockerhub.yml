@@ -25,7 +25,7 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     
-    - name: Build and push Docker image
+    - name: Build Docker image
       uses: docker/build-push-action@v4
       with:
         context: .
@@ -37,7 +37,7 @@ jobs:
           
     - name: Test Docker image
       run: |
-        docker run -d --name=quotes-api-test -p8000:8000 mymi14s/quotes:latest
+        docker run -d --name=quotes-api-test -p8000:8000 mymi14s/quotes-api:latest
         sleep 10  # Give the container time to start up
         curl -s -o /dev/null -w "%{http_code}" http://localhost:8000 | grep 200 || exit 1
         docker logs quotes-api-test
